@@ -11,8 +11,7 @@ export default function DataQuality() {
         <Eyebrow>Data exploration & quality assessment</Eyebrow>
         <H1>What's in the Data and Can We Trust It?</H1>
         <Lead>
-          One table consisting of {COVERAGE.totalRows.toLocaleString()} order rows profiled for grain, coverage, and distributions,
-          then a single cleaning intervention applied.
+          1.5M Rows of Order Level Data Spanning from 2020 - 2025
         </Lead>
       </Stack>
 
@@ -33,10 +32,7 @@ export default function DataQuality() {
           rowTone={CONCENTRATION.map((c) => c.tone)}
         />
         <Callout tone="warning" title="Why Segment: One Brand Is a Whale">
-          A single brand runs <b>25 of 292 locations</b> — only 8.6% of locations but account for <b>~24% of GMV</b>. Its locations move
-          together, so it inflates any pooled / mean / dollar-weighted trend. The <b>median</b> headline is robust to it;
-          the mean views are what it lifts. The growth analysis segments on these cohorts and leads with the median for
-          exactly this reason.
+          A single brand runs <b>25 of 292 locations</b> but accounts for <b>~24% of GMV</b>. The brand is so large it inflates any average aggregation across the group which is why we'll anchor on the group median.
         </Callout>
       </Stack>
 
@@ -51,8 +47,8 @@ export default function DataQuality() {
               showValues
             />
             <Caption style={{ marginTop: 6 }}>
-              Web dominates ({Math.round((ORDER_SOURCE.orders[0] / COVERAGE.totalRows) * 100)}%); App is the growth surface
-              ({Math.round((ORDER_SOURCE.orders[1] / COVERAGE.totalRows) * 100)}%). POS/Phone are rare — group as "Other" for downstream analysis.
+              Web({Math.round((ORDER_SOURCE.orders[0] / COVERAGE.totalRows) * 100)}%) | App
+              ({Math.round((ORDER_SOURCE.orders[1] / COVERAGE.totalRows) * 100)}%) | POS+Phone <0.1%.
             </Caption>
           </CardBody>
         </Card>
@@ -66,21 +62,20 @@ export default function DataQuality() {
               showValues
             />
             <Caption style={{ marginTop: 6 }}>
-              Pickup-heavy concentration. Delivery fields are partly incomplete (443 delivery orders lack a type; 22K lack a fee).
+              Pickup represents ~83% of total volume.
             </Caption>
           </CardBody>
         </Card>
       </Grid>
 
-      <Callout tone="success" title="Cross-Channel Identity is Sustained by Design">
+      <Callout tone="success" title="Only ~13% of Guests Have Placed an Order via App">
         <Row gap={24} wrap>
           <Stat value={IDENTITY.bothChannels.toLocaleString()} label="guests use BOTH app & web" tone="success" />
           <Stat value={IDENTITY.anyApp.toLocaleString()} label="guests with any app order" tone="neutral" />
           <Stat value={`${IDENTITY.pctRepeat}%`} label={`repeat guests (${IDENTITY.repeat2plus.toLocaleString()} with 2+ orders)`} tone="neutral" />
         </Row>
         <Caption style={{ marginTop: 8 }}>
-          GUEST_ID is shared across App & Web — so a guest who starts on Web and later adopts the App can be tracked as a
-          "switcher". The entire incrementality design hinges on this.
+          GUEST_ID is shared universally across both App and Web channels
         </Caption>
       </Callout>
 
@@ -98,9 +93,8 @@ export default function DataQuality() {
           rowTone={DQ_FINDINGS.map((f) => (f.severity === "EXCLUDE" ? "warning" : f.severity === "CLEAN" ? "success" : undefined))}
         />
         <Caption>
-          Two interventions on the base: remove 5 non-human/demo guests (558 orders, 0.037% of orders / 0.02% of GMV) and
-          3 dormant-reactivation locations that re-onboarded under the same LOCATION_ID (4,957 orders, 0.33% / 0.43% of GMV) —
-          together 0.36% of orders and 0.44% of GMV. Everything else is a documented note — no rows dropped, no silent imputation.
+          Entity Exclusions: 5 non-human/demo guests (558 orders, 0.037% of orders / 0.02% of GMV) and
+          3 locations that re-onboarded under the same LOCATION_ID (4,957 orders, 0.33% / 0.43% of GMV)
         </Caption>
       </Stack>
 
@@ -113,7 +107,7 @@ export default function DataQuality() {
               align={["left", "left", "left"]}
               rows={DATA_MODEL.map((d) => [<code key="o" style={{ fontSize: 12 }}>{d.object}</code>, d.where, d.what])}
             />
-            <Caption style={{ marginTop: 8 }}>Downstream queries and analysis read <code>OWNER_CASE_CLEAN</code>, never the raw table.</Caption>
+            <Caption style={{ marginTop: 8 }}>All downstream queries and analysis is conducted on top of this 'CLEAN' table.</Caption>
           </CardBody>
         </Card>
         <Card>
