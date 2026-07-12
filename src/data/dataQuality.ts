@@ -61,7 +61,7 @@ export const DQ_FINDINGS: { severity: DQSeverity; finding: string; detail: strin
 export const DATA_MODEL: { object: string; where: string; what: string }[] = [
   { object: "product_analytics_case_v2", where: "00", what: "Typed table via TRY_* casts (unparseable → NULL)." },
   { object: "product_analytics_case_v2_CLEAN", where: "02", what: "The analysis base. OWNER_CASE minus 5 bot/demo guests (558 orders) + 3 dormant-reactivation locations (~4.9k orders). 295→292 locations." },
-  { object: "product_analytics_case_v2_LOC_SEG", where: "03", what: "Brand→cohort map: single_loc / multi_loc / top_brand (whale)." },
+  { object: "product_analytics_case_v2_LOC_SEG", where: "03", what: "Brand→cohort map: single_loc / multi_loc / top_brand." },
 ];
 
 // Monitoring proposal
