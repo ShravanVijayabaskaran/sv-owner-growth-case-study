@@ -17,26 +17,26 @@ export const EXEC_KPIS: { value: string; label: string; tone?: "success" | "info
 export const EXEC_FINDINGS: { q: string; verdict: string; body: string; tone: "success" | "info" }[] = [
   {
     q: "Does Owner drive growth?",
-    verdict: "Yes — and it's a customer-acquisition story",
-    body: "The typical Owner location grows +11.7% YoY (median) over its own tenure, ~3.5× the US restaurant market average over the same time period. This growth is overwhelmingly a unique-customer-count story (≈92% of GMV growth), not bigger baskets or more frequent ordering per guest. One top brand (25 locs/24% of GMV) observes anamolous growth (+53% YoY) and distorts every pooled/mean view, so the median is the honest headline. Of the third of locations that churned, these brands had flat-to-declining growth before leaving. EMOB features are unable to reasonably predict a locations liklihood to grow but this model could be improved with more data.",
+    verdict: "YES! The Typical Owner Location Grows ~12% YoY",
+    body: "The typical Owner location grows +11.7% YoY (median) over its own tenure, ~3.5× the US restaurant market average over the same time period. This growth is primarily driven by guest acquisition while order/guest and AOV were not as influential. Owner's top brand saw outsized growth many multiples higher than its piers (53.1%) which skewed any mean based calculation. Additionally, ~34% of locations in the sample data churned which we believe to be associated with their subpar growth prior to leaving. EMOB features are unable to reasonably predict a locations liklihood to grow but this model could be improved with more data.",
     tone: "success",
   },
   {
     q: "Is the app incremental?",
-    verdict: "Partly — a real, durable retention lift survives",
-    body: "Observationally, app users appear 2.6× more valuable than non-app users but this is almost entirely driven by selection bias and circularity. When applying a matched control over a fixed 6-month window post app adoptions, an app user places +1.25 more orders (+37%), spends +$36 more (+26%), and is +7.2pp (+10%) more likely to still be active in the 6 months post adoption. The mechanism driving this trend is the increase in retention (fewer guests drop to zero), not bigger baskets. A secondary store-enablement analysis agrees with this story as well (+8.6% GMV) although this was lower powered and should only be interpreted as directionally supportive evidence.",
+    verdict: "YES! Guests Experience a +26% GMV Lift in the 180D Following App Adoption",
+    body: "Observationally, app users appear 2.6× more valuable than non-app users but this is almost entirely driven by self-selection bias in the data. When applying a matched control over a fixed 6-month window post app adoption, an app user places +1.25 more orders (+37%), spends +$36 more (+26%), and is +7.2pp (+10%) more likely to still be active in the 6 months post adoption. This impact looks to be sustained over the entirety of the 6 month analysis window. A secondary store-enablement analysis agrees with this story as well (+8.6% GMV) although this was lower powered and should only be interpreted as directionally supportive evidence.",
     tone: "info",
   },
 ];
 
 export const EXEC_NEXT = [
-  "Move app incrementality from directional to causal via designed experiment(s) — a brand-level holdout or a guest-level randomized AB test to recover a clean ATE free of observational biases.",
-  "Enrich the data beyond the order log (pre-Owner history, marketing spend, geography, local competition, menu breadth, operator tenure) to sharpen the growth-driver model and an app-adoption propensity model for tighter matching.",
+  "Move app incrementality from directional to causal via designed experiment(s) like a brand-level holdout or a guest-level randomized AB test.",
+  "Enrich the data beyond the order log (pre-Owner history, marketing spend, geography, local competition, menu breadth, operator tenure) to sharpen the growth-driver model.",
   "Explore product changes that address identified gaps to improve the product's efficacy - i.e., address adverse AOV impact on multi-location brands via basket analysis tooling.",
 ];
 
 export const EXEC_CAVEATS = [
-  "Since we lack a clean designed experiment all results are directional in contrast to a clean ATE.",
+  "Since we lack a clean designed experiment all results are directional and we cannot draw any causal conclusions.",
   "Some results are lower powered than others due to differing analysis approaches and sample availability.",
   "A guest's 'first' observed order may not be their true first order due to the limited data visibility.",
 ];
