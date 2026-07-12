@@ -50,9 +50,6 @@ vercel          # preview deploy
 vercel --prod   # production
 ```
 
-> Internal note: for a DoorDash-internal, SSO-gated version, Zerobox (#wg-web-zerobox) is the
-> default platform. This tool is a public-friendly Vercel build per the request.
-
 ## Data provenance
 
 All figures trace to `PRODDB.SHRAVANV.OWNER_CASE_CLEAN` and the SQL in `content/sql/`
