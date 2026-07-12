@@ -259,7 +259,7 @@ export default function AppIncrementality() {
             <CardBody>
               <LineChartX categories={ES4_CATS} height={230} beginAtZero={false} referenceLine={{ value: 100, label: "pre-period", tone: "neutral" }}
                 series={[{ name: "App-Enabling Store", data: ES4_TREATED, tone: "success" }, { name: "Matched Control (Size + Pre-Trend)", data: ES4_CONTROL, tone: "neutral" }]} />
-              <Caption style={{ marginTop: 8 }}>X: months relative to enablement (event at −1/+1) · Y: total GMV indexed to each store&apos;s own pre-period mean. <b>Pre-event parallel</b>, then treated steps up and <b>keeps climbing through month 6</b> (109→122) while control lags. There is an anamolous recovery in M3 for Control but this is rather short lived and growth is sustained again.</Caption>
+              <Caption style={{ marginTop: 8 }}>X: months relative to enablement (event at −1/+1) · Y: total GMV indexed to each store&apos;s own pre-period mean. <b>Pre-event parallel</b>, then treated steps up and <b>keeps climbing through month 6</b> (109→122) while control lags. There is an anamolous recovery in M3 for Control but this is rather short lived and growth is sustained into latter months.</Caption>
             </CardBody>
           </Card>
         </Grid>
