@@ -14,7 +14,7 @@ export const EXEC_FINDINGS: { q: string; verdict: string; body: string; tone: "s
   {
     q: "Does Owner drive growth?",
     verdict: "The Typical Owner Location Grows ~12% YoY",
-    body: "The typical Owner location grows +11.7% YoY (median) over its own tenure, ~3.5× the US restaurant market average over the same time period. This growth is primarily driven by guest acquisition while order/guest and AOV were not as influential. Owner's top brand saw outsized growth many multiples higher than its piers (53.1%) which skewed any mean based calculation. Additionally, ~34% of locations in the sample data churned which we believe to be associated with their subpar growth prior to leaving. EMOB features are unable to reasonably predict a locations liklihood to grow but this model could be improved with more data.",
+    body: "The typical Owner location grows +11.7% YoY (median) over its own tenure, ~3.5× the US restaurant market average over the same time period. This growth is primarily driven by guest acquisition while orders/guest and AOV were not as influential. Owner's top brand saw outsized growth many multiples higher than its peers (53.1%) which skewed any average calculation across the network. Additionally, ~34% of locations in the sample data churned which we believe to be associated with their subpar growth prior to leaving. EMOB features are unable to reasonably predict a locations liklihood to grow but this model could be improved with more data.",
     tone: "success",
   },
   {
