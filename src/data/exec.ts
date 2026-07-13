@@ -1,5 +1,5 @@
 export const EXEC_INTRO =
-  "Owner.com gives independent restaurants their own branded website and app that are optimize to drive growth. This study answers two questions from ~1.5M orders: \n\n(1) are Owner restaurants growing over time and if so, what drives this growth? \n(2) is the Owner app driving incremental value for Owner customers?";
+  "Owner.com gives independent restaurants their own branded website and app that are optimized to drive growth. This study answers two questions: \n\n(1) are Owner restaurants growing over time and if so, what drives this growth? \n(2) is the Owner app driving incremental value for Owner customers?";
 
 // Top-line KPI strip
 export const EXEC_KPIS: { value: string; label: string; tone?: "success" | "info" | "warning" | "neutral" }[] = [
