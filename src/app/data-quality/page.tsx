@@ -1,6 +1,6 @@
 import { Stack, Grid, Row, Card, CardHeader, CardBody, Callout, Stat, Table, SectionHeading, Eyebrow, H1, Lead, Caption, Divider } from "@/components/ui";
 import { BarChartX } from "@/components/charts";
-import { COVERAGE, ORDER_SOURCE, ORDER_TYPE, IDENTITY, TENURE, CONCENTRATION, DQ_FINDINGS, DATA_MODEL, MONITORING, REVENUE } from "@/data/dataQuality";
+import { COVERAGE, ORDER_SOURCE, ORDER_TYPE, IDENTITY, TENURE, CONCENTRATION, DQ_FINDINGS, DATA_MODEL, MONITORING } from "@/data/dataQuality";
 
 const sevTone: Record<string, "success" | "warning" | "info"> = { EXCLUDE: "warning", NOTE: "info", CLEAN: "success" };
 
@@ -11,7 +11,7 @@ export default function DataQuality() {
         <Eyebrow>Data exploration & quality assessment</Eyebrow>
         <H1>What's in the Data and Can We Trust It?</H1>
         <Lead>
-          1.5M Rows of Order Level Data Spanning from 2020 - 2025
+          1.5M Rows of Order Level Data Spanning ~300 Locations and ~700K Guests
         </Lead>
       </Stack>
 
@@ -32,13 +32,13 @@ export default function DataQuality() {
           rowTone={CONCENTRATION.map((c) => c.tone)}
         />
         <Callout tone="warning" title="Why Segment: One Brand Is a Whale">
-          A single brand runs <b>25 of 292 locations</b> but accounts for <b>~24% of GMV</b>. The brand is so large it inflates any average aggregation across the group which is why we'll anchor on the group median.
+        A single brand runs <b>25 of 292 locations</b> but accounts for <b>~24% of GMV</b>. The brand is so large it inflates any average aggregation across the group which is why we'll anchor on the group median.
         </Callout>
       </Stack>
 
       <Grid cols={2} min="360px" gap={16}>
         <Card>
-          <CardHeader trailing={<Caption>Orders by Channel</Caption>}>Channel Mix — Where Orders Come From</CardHeader>
+          <CardHeader trailing={<Caption>Orders by Channel</Caption>}>Channel Mix</CardHeader>
           <CardBody>
             <BarChartX
               categories={ORDER_SOURCE.cats}
@@ -47,8 +47,8 @@ export default function DataQuality() {
               showValues
             />
             <Caption style={{ marginTop: 6 }}>
-              Web({Math.round((ORDER_SOURCE.orders[0] / COVERAGE.totalRows) * 100)}%) | App
-              ({Math.round((ORDER_SOURCE.orders[1] / COVERAGE.totalRows) * 100)}%) | POS+Phone <0.1%.
+            Web({Math.round((ORDER_SOURCE.orders[0] / COVERAGE.totalRows) * 100)}%) | App
+            ({Math.round((ORDER_SOURCE.orders[1] / COVERAGE.totalRows) * 100)}%) | POS+Phone &lt;0.1%.
             </Caption>
           </CardBody>
         </Card>
@@ -62,7 +62,7 @@ export default function DataQuality() {
               showValues
             />
             <Caption style={{ marginTop: 6 }}>
-              Pickup represents ~83% of total volume.
+              Pickup Represents ~83% of Total Volume
             </Caption>
           </CardBody>
         </Card>
@@ -75,7 +75,7 @@ export default function DataQuality() {
           <Stat value={`${IDENTITY.pctRepeat}%`} label={`repeat guests (${IDENTITY.repeat2plus.toLocaleString()} with 2+ orders)`} tone="neutral" />
         </Row>
         <Caption style={{ marginTop: 8 }}>
-          GUEST_ID is shared universally across both App and Web channels
+          GUEST_ID is shared universally across App & Web channels
         </Caption>
       </Callout>
 
@@ -93,8 +93,8 @@ export default function DataQuality() {
           rowTone={DQ_FINDINGS.map((f) => (f.severity === "EXCLUDE" ? "warning" : f.severity === "CLEAN" ? "success" : undefined))}
         />
         <Caption>
-          Entity Exclusions: 5 non-human/demo guests (558 orders, 0.037% of orders / 0.02% of GMV) and
-          3 locations that re-onboarded under the same LOCATION_ID (4,957 orders, 0.33% / 0.43% of GMV)
+        Entity Exclusions: 5 non-human/demo guests (558 orders, 0.037% of orders / 0.02% of GMV) and
+        3 locations that re-onboarded after 6+ months dormant (4,957 orders, 0.33% of Orders / 0.43% of GMV)
         </Caption>
       </Stack>
 
@@ -107,21 +107,20 @@ export default function DataQuality() {
               align={["left", "left", "left"]}
               rows={DATA_MODEL.map((d) => [<code key="o" style={{ fontSize: 12 }}>{d.object}</code>, d.where, d.what])}
             />
-            <Caption style={{ marginTop: 8 }}>All downstream queries and analysis is conducted on top of this 'CLEAN' table.</Caption>
+            <Caption style={{ marginTop: 8 }}>            <Caption style={{ marginTop: 8 }}>All downstream queries and analysis is conducted on top of this 'CLEAN' table.</Caption>.</Caption>
           </CardBody>
         </Card>
         <Card>
           <CardHeader trailing={<Caption>Location Tenure</Caption>}>Tenure Feasibility</CardHeader>
           <CardBody>
             <Grid cols={2} gap={14}>
-              <Stat value={TENURE.yr1plus.toString()} label="locations ≥1yr (supports MoM view)" tone="info" />
-              <Stat value={TENURE.yr2plus.toString()} label="locations ≥2yr (supports rigorous YoY)" tone="warning" />
+              <Stat value={TENURE.yr1plus.toString()} label="locations ≥1yr tenure" tone="info" />
+              <Stat value={TENURE.yr2plus.toString()} label="locations ≥2yr tenure" tone="warning" />
               <Stat value={`${TENURE.medianDays}d`} label="median tenure" tone="neutral" />
               <Stat value={`${TENURE.maxDays.toLocaleString()}d`} label="max tenure (~5 yrs)" tone="neutral" />
             </Grid>
             <Caption style={{ marginTop: 10 }}>
-              Rigorous same-store YoY is thin (61 locations). Implication: report BOTH a YoY view (rigor) and a rolling
-              30-day view (coverage) — which the growth page does.
+              Only 61 locations meet our clean YoY analysis threshold so we'll measure both YoY and MoM figures to allow for greater analysis representation.
             </Caption>
           </CardBody>
         </Card>
@@ -129,30 +128,15 @@ export default function DataQuality() {
 
       <Divider />
 
-      <Grid cols={2} min="360px" gap={16}>
-        <Stack gap={12}>
-          <SectionHeading eyebrow="pipeline monitoring proposal" title="How We'd Catch Issues Going Forward" />
-          <Table
-            headers={["Check", "Rule"]}
-            align={["left", "left"]}
-            rows={MONITORING.map((m) => [<b key="c">{m.check}</b>, m.rule])}
-          />
-          <Caption>Can Implement Checks Straight into ETL to Produce Daily Data Quality Report</Caption>
-        </Stack>
-        <Stack gap={12}>
-          <SectionHeading eyebrow="Owner Subscription Revenue" title="Owner Revenue Proxy" sub="Plans: flat $499/mo OR $249/mo + 5% GMV (breakeven ≈ $5,000 GMV/mo). Estimated on a daily-rate basis." />
-          <Card>
-            <CardBody>
-              <Grid cols={2} gap={14}>
-                <Stat value={`${REVENUE.pctAboveBreakeven}%`} label="locations above breakeven → flat plan" tone="success" />
-                <Stat value={`$${REVENUE.medianDailyGmv}`} label="median daily GMV/location" tone="neutral" />
-                <Stat value={`$${REVENUE.estMonthlyRev.toLocaleString()}`} label="est. Owner revenue / mo (sample)" tone="info" />
-                <Stat value={REVENUE.arr} label="implied ARR on the sample" tone="info" />
-              </Grid>
-            </CardBody>
-          </Card>
-        </Stack>
-      </Grid>
+      <Stack gap={12}>
+        <SectionHeading eyebrow="pipeline monitoring proposal" title="How We'd Catch Issues Going Forward" />
+        <Table
+          headers={["Check", "Rule"]}
+          align={["left", "left"]}
+          rows={MONITORING.map((m) => [<b key="c">{m.check}</b>, m.rule])}
+        />
+        <Caption>Can Implement Checks Straight into ETL to Produce Daily Data Quality Report</Caption>
+      </Stack>
     </Stack>
   );
 }

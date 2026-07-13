@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-export function SqlBlock({ name, title, page, blurb, code, lines }: { name: string; title: string; page: string; blurb: string; code: string; lines: number }) {
+export function SqlBlock({ name, title, page, blurb, code }: { name: string; title: string; page: string; blurb: string; code: string }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -28,7 +28,6 @@ export function SqlBlock({ name, title, page, blurb, code, lines }: { name: stri
           <span className="caption" style={{ paddingLeft: 20 }}>{blurb}</span>
         </span>
         <span style={{ display: "flex", gap: 8, alignItems: "center" }}>
-          <span className="caption">{lines} lines</span>
           <button
             type="button"
             className="pill"

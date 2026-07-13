@@ -202,7 +202,6 @@ export function IntervalPlot({
           </div>
         );
       })}
-      <span className="caption" style={{ marginTop: 2 }}>Dot = paired-median DiD · bar = 95% CI · vertical line = 0 (no effect)</span>
     </div>
   );
 }

@@ -14,10 +14,10 @@ export const SEG: Record<SegKey, {
   g30: number; mean30: number; n30: number; pctGrow: number;
   note: string;
 }> = {
-  all:        { label: "All Locations", short: "All", nBrands: 229, nLoc: 292, pctLoc: 100, pctGmv: 100, yoy: 11.7, yoyMean: 17.2, yoyN: 51, g30: 1.80, mean30: 5.40, n30: 289, pctGrow: 73.0, note: "Blended Book — Lifted by the Top Brand." },
-  single_loc: { label: "Single-Location Brands", short: "Single-Loc", nBrands: 205, nLoc: 205, pctLoc: 70.2, pctGmv: 51.6, yoy: 9.9, yoyMean: 13.3, yoyN: 42, g30: 1.72, mean30: 1.34, n30: 203, pctGrow: 72.9, note: "The 'Typical' Independent Restaurant — Solid, Steady Growth." },
-  multi_loc:  { label: "Multi-Location Brands", short: "Multi-Loc", nBrands: 23, nLoc: 62, pctLoc: 21.2, pctGmv: 24.0, yoy: 5.4, yoyMean: 4.2, yoyN: 4, g30: 1.19, mean30: 1.72, n30: 62, pctGrow: 67.7, note: "Small Multi-Unit Brands (2–8 locations), excl. the Top Brand." },
-  top_brand:  { label: "Top Brand", short: "Top Brand", nBrands: 1, nLoc: 25, pctLoc: 8.6, pctGmv: 24.4, yoy: 53.1, yoyMean: 59.7, yoyN: 5, g30: 5.50, mean30: 52.33, n30: 24, pctGrow: 87.5, note: "One 25-Location Brand Experiencing Anamolous Growth that Dominates Means." },
+  all:        { label: "All Locations", short: "All", nBrands: 229, nLoc: 292, pctLoc: 100, pctGmv: 100, yoy: 11.7, yoyMean: 17.2, yoyN: 51, g30: 1.80, mean30: 5.40, n30: 289, pctGrow: 73.0, note: "Blended Book Lifted by the Top Brand" },
+  single_loc: { label: "Single-Location Brands", short: "Single-Loc", nBrands: 205, nLoc: 205, pctLoc: 70.2, pctGmv: 51.6, yoy: 9.9, yoyMean: 13.3, yoyN: 42, g30: 1.72, mean30: 1.34, n30: 203, pctGrow: 72.9, note: "The 'Typical' Independent Restaurant" },
+  multi_loc:  { label: "Multi-Location Brands", short: "Multi-Loc", nBrands: 23, nLoc: 62, pctLoc: 21.2, pctGmv: 24.0, yoy: 5.4, yoyMean: 4.2, yoyN: 4, g30: 1.19, mean30: 1.72, n30: 62, pctGrow: 67.7, note: "Small Multi-Unit Brands (2-8 locations), excl. the Top Brand" },
+  top_brand:  { label: "Top Brand", short: "Top Brand", nBrands: 1, nLoc: 25, pctLoc: 8.6, pctGmv: 24.4, yoy: 53.1, yoyMean: 59.7, yoyN: 5, g30: 5.50, mean30: 52.33, n30: 24, pctGrow: 87.5, note: "Owner's Top Brand w/ 25-Locations" },
 };
 
 export const CMP_CATS = ["All", "Single-Loc", "Multi-Loc", "Top Brand"];
@@ -98,13 +98,14 @@ export const DRV_SCALE = 2.4;
 // ---- Page framing: summary (top), per-result methodology, next steps (bottom) ----
 export const GROWTH_SUMMARY = {
   takeaways: [
-    "The typical Owner location grows ~12% per year (median) with 73% of locations observing positive growth — several times the ~3%/Y US restaurant market trend, though channel-shift and survivorship inflate that gap.",
-    "Growth is overwhelmingly a customer-acquisition story with ~90% of GMV growth driven by more unique customers, not bigger or more frequent baskets.",
-    "Owners top brand is the standout grower and distorts every pooled / mean / dollar-weighted view (24% of GMV) — the median is the honest headline of what a typical location experiences.",
-    "Roughly 2/3 Owner locations are retained, however, locations that churn observe lower growth rates than those that stick around — early-location features are unable to reasonably predict a locations liklihood to grow.",
+    "The typical Owner location grows ~12% per year (median) with 73% of locations observing positive growth, several times the ~3%/Y US restaurant market trend, though channel-shift and survivorship could be inflating the gap.",
+    "This growth is primarily driven by guest acquisition while order/guest and AOV were not as influential. Across multi-location brands, AOV actually looks to be a growth headwind.",
+    "Owner's top brand saw outsized growth many multiples higher than its piers (53.1% vs 11.7%) which skewed any mean based calculation. Single-location brands grew at a greater rate than multi-location brands across the rolling MoM result.",
+    "Roughly 2/3 Owner locations are retained, however, locations that churn observe lower growth rates than those that stick around.",
+    "Leveraging EMOB location features we were unable to reasonably predict a locations liklihood to grow however more data could improve model accuracy",
   ],
   approach:
-    "Per-location GMV growth on an onboarding-relative clock (each location its own control), compounded geometrically within a location and summarized by the median across locations. Cut by brand cohort, split by brand-level retention to confront survivorship, and probed with a driver regression that across predictive baseline features and retroactive lifecycle descriptors.",
+    "Per-location GMV growth on an onboarding-relative clock (each location its own control), compounded geometrically within a location and summarized by the median across locations. Cut by brand cohort, split by brand-level retention to confront survivorship, and probed with a driver regression across both predictive baseline features and retroactive lifecycle descriptors.",
 };
 
 // Per-location 30-day GMV growth by onboarding window (W1–W6, cut at W6).
@@ -119,33 +120,33 @@ export const STEP_POSTRAMP_MEDIAN = 1.8;
 export const GROWTH_METHOD = {
   headline: {
     approach:
-      "For each location, GMV is bucketed into fixed 30-day windows on a days-since-first-order clock (the first 30 onboarding days dropped). Within-location growth is compounded geometrically; the YoY view uses a CAGR over locations with ≥760 days, the rolling view uses post-ramp 30-day rates. We report the median across locations, with the mean shown alongside.",
+      "For each location, GMV is bucketed into fixed 30-day windows relative to a locations first order with the first 30 days dropped to allow for onboarding ramp. Growth is then calculated geometrically to account for compounding. The YoY view uses a CAGR over locations with ≥760 days while the rolling view uses post-ramp 30-day rates.",
     caveats:
-      "Observational — there is no non-Owner control arm, so this is a trajectory, not a causal lift. The YoY view conditions on survival (≥760d, a thin sample) and both views are nominal (include menu-price inflation). Much of the edge over the national benchmark is likely channel-shift, not net-new demand.",
+      "There is no non-Owner or pre-Owner counterfactual so we cannot draw any causal conclusions. The YoY view only includes locations surviving for 760+ days which is likely to artificially inflate some results as well.",
   },
   benchmark: {
     approach:
-      "Owner's per-location median tenure-YoY growth is placed against US total restaurant spend from the USDA Food Expenditure Series (nominal $, 2020–2025), summarized as a compound annual growth rate. The comparison is directional — a magnitude sanity-check, not a like-for-like matched benchmark.",
+      "Owner's per-location median tenure-YoY growth is placed against US total restaurant spend from the USDA Food Expenditure Series across the same time horizone. We've summarized the broader market trend as a compound annual growth rate that we can use to check whether Owner locations are growing faster than the broader industry average.",
     caveats:
-      "Not apples-to-apples: the USDA line is national all-restaurant nominal spend (a market-size series), while the Owner figure is a per-location within-store growth median on the onboarding clock. Owner's edge could be inflated by channel-shift (demand moving onto Owner's channels rather than net-new spend), survivorship (only surviving locations reach the YoY sample), and menu-price inflation shared by both.",
+      "The USDA line is broad national all-restaurant spend which may not be a representative benchmark for Owner's own customer base. Also Owner's growth figure could be inflated by survivorship bias.",
   },
   attribution: {
     approach:
-      "GMV growth is split log-additively into unique customers × orders/customer × AOV (the three shares sum to 100%); AOV is then split into items/order × price/item. Same geometric per-30-day engine, computed within each segment.",
+      "GMV growth is split log-additively into unique customers × orders/customer × AOV (the three shares sum to 100%); AOV is then split into items/order × price/item using the same approach.",
     caveats:
-      "This is a descriptive decomposition, not a causal attribution. Its GMV base is the geometric mean across locations (the mean of log-growth) — required for the three shares to be additive — so it deliberately will not match the median rolling-30-day headline; the median is the robust typical-location figure but cannot be decomposed.",
+      "The results GMV base is the geometric mean across locations which could be susceptible to outliers skewing results.",
   },
   survivorship: {
     approach:
-      "Locations are split into retained vs churned by brand-level activity (the brand placed an order within 14 days of the latest date). Growth is measured over each location's own tenure with the same YoY / 30-day engines; distributions are normalized to % of each cohort so the two are comparable despite different sizes.",
+      "Locations are split into retained vs churned by brand-level activity (the brand placed an order within 14 days of the latest date). Growth is measured over each location's own tenure with the same YoY / 30-day approaches while distributions are normalized to % of each cohort so each cohort is directly comparable.",
     caveats:
-      "Churn here is a data-window proxy (no true cancellation date), so right-censoring can mislabel a recently-quiet brand. The YoY survivor cut is subject to smaller sample sizes.",
+      "We are assuming churn based off of brand inactivity since we don't have definitive Owner account data. Also the YoY metric is subject to very small sample sizes across certain cohorts when we begin to breakout the results.",
   },
   drivers: {
     approach:
-      "OLS of post-ramp 30-day growth on standardized features with brand-clustered SEs and a cross-validated R². Baseline features are measured in the first 60 days (exogenous, causal-leaning); lifecycle features span the whole history (descriptive). 28 pairwise interactions were tested and rejected.",
+      "OLS of post-ramp 30-day growth on standardized features with brand-clustered SEs and a cross-validated R². Baseline features are measured in the first 60 days while lifecycle features span the enture tenure of a location.",
     caveats:
-      "Associational, not causal (no control arm). Baseline out-of-sample fit is modest and noisy (CV R² ≈ 0.18); lifecycle features are endogenous — they overlap the outcome window — so they are a portrait, not a lever.",
+      "Baseline out-of-sample fit is modest and noisy (CV R² ≈ 0.18) while the lifecycle features are more descriptive as they overlap with the measurement window.",
   },
 };
 
@@ -153,7 +154,7 @@ export const GROWTH_NEXT = {
   followUps: [
     "Collect pre-Owner data from customers in order to build a more causal understanding of platform growth.",
     "Deep dive on AOV impact to understand opportunities to improve product impact via basket analytics and optimization.",
-    "Enrich the driver model with off-data signals — customer conversion, geography, local competition, marketing spend, menu breadth, operator tenure, etc. — since the order log alone is not very predictive of growth.",
+    "Enrich the driver model with additional features like cuisine, conversion, geography, local competition, marketing spend, menu breadth, operator tenure, etc. since the order data alone is not very predictive of growth.",
     "Deep-dive cost side of profitability equation to understand opportunities to improve profitability via cost optimization and efficiency gains.",
   ],
   experiments: [

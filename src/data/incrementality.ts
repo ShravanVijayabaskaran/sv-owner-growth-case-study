@@ -36,7 +36,7 @@ export const OUTCOME: Record<OutcomeKey, {
     sw: [4.68], ct: [3.43], prefix: "", suffix: "",
     effect: "+1.25", effectLabel: "more orders per guest over 6 months post app adoption (+37%)",
     yLabel: "orders in the fixed 180-day app adoption (mean per guest)",
-    note: "Switchers place 4.68 orders vs 3.43 for matched controls: +1.25 incremental orders per guest (+37%) with a 95% CI at [+1.13, +1.39].",
+    note: "Adopters place 4.68 orders vs 3.43 for matched controls - +1.25 incremental orders per guest (+37%) with a 95% CI above zero.",
   },
   gmv: {
     short: "Total GMV",
@@ -45,16 +45,16 @@ export const OUTCOME: Record<OutcomeKey, {
     sw: [176.04], ct: [140.22], prefix: "$", suffix: "",
     effect: "+$36", effectLabel: "more GMV per guest over 6 months post app adoption (+26%)",
     yLabel: "GMV ($) in the fixed 180-day post app adoption (mean per guest)",
-    note: "Switchers spend $176.04 vs $140.22 for matched controls: +$35.82 incremental GMV per guest (+26%) with a 95% CI at [+$31.0, +$40.6].",
+    note: "Adopters spend $176.04 vs $140.22 for matched controls - +$35.82 incremental GMV per guest (+26%) with a 95% CI above zero.",
   },
   retention: {
     short: "6-Month Retention",
     chartTitle: "Share Still Active Within 6 Months",
     cats: ["Active Within 180 Days"],
     sw: [80.1], ct: [73.0], prefix: "", suffix: "%",
-    effect: "+7.2pp", effectLabel: "more likely to still be ordering within 6 months post app adoption",
+    effect: "+7.2pp", effectLabel: "more likely to place a follow up order within 6 months post app adoption",
     yLabel: "% of guest with any repeat orders within the 180 days post app adoption",
-    note: "80.1% of switchers place at least one more order within 6 months of app adoption vs 73.0% of matched controls — +7.16pp with a 95% CI [+6.3, +8.1]. This is the mechanism behind the extra orders and dollars as fewer adopters drop to zero and this gap only widens deeper into the window — in months 4–6 switchers lead 57.5% vs 47.3% (+10.2pp, CI [+9.1, +11.3]).",
+    note: "80.1% of adopters place at least one more order within 6 months of app adoption vs only 73.0% of matched controls — +7.16pp with a 95% CI above zero. This gap only widens deeper into the post-period window where in months 4–6 57.5% are retained compared to only 47.3% of control (+10.2pp).",
   },
 };
 
@@ -134,47 +134,47 @@ export const R3_180 = { swOrd: 4.68, ctOrd: 3.43, swGmv: 176.04, ctGmv: 140.22, 
 // ---- Page framing: summary (top), per-approach methodology, next steps (bottom) ----
 export const INCR_SUMMARY = {
   takeaways: [
-    "Guests that adopt the app spend 26% more in the 6 months folllowing when compared against a matched control.",
-    "The mechanism driving this result is retention, where adopters are 9.69% less likely to churn away from the brand in the analysis window.",
-    "App adoption drives growth across all guest cohorts, irrespective of their pre adoption behavior however we observe the largest lift for lower volume occasional diners.",
-    "The lift grows with brand sophistication where the top brand again materially outperforms counterparts; an independent store-enablement DiD agrees (+8.7pp GMV) but is thin (32 events).",
+    "Guests that place an order on the app spend 26% more in the 6 months folllowing adoption while churning 9.69% less when compared against a matched web-only control.",
+    "App adoption drives growth across all guest cohorts, irrespective of their pre adoption behavior however we observe the largest relative lift for lower volume occasional diners.",
+    "The lift grows with brand scale as the top brand again materially outperforms counterparts",
+    "A seperate location level app-enablement DiD told a similar story as stores outperform a set of matched peers after enabling app usage (+8.6% GMV).",
   ],
   approach:
-    "We separate observational reads (biased by who self-selects into the app) from designed measurement. The primary design is a within-guest 'switcher' difference-in-differences with coarsened-exact-matched controls over a fixed 6-month window; a store-enablement DiD corroborates. Every outcome is TOTAL value across channels, and every headline carries a guest-clustered bootstrap CI plus a regression cross-check.",
+    "The primary analysis is a guest level DiD with controls matched by preadoption order count, and order velocity (time to reach adoption in days). We then measured behaviorover a fixed 6-month window post app adoption while running a similar store level DiD to corroborate our results.",
 };
 
 export const INCR_METHOD = {
   observational: {
     approach:
-      "The naive read compares lifetime per-guest orders / GMV / repeat rate for app adopters vs web-only guests. The penetration read buckets stores by lifetime app-penetration and compares their median 30-day GMV growth.",
+      "This observational approach compares lifetime per-guest orders / GMV / repeat rate for app adopters vs web-only guests while the penetration view buckets stores by their lifetime app-penetration rate and compares their median 30-day GMV growth.",
     caveats:
-      "Both are confounded by selection — motivated, loyal, larger, savvier guests and stores adopt the app. The naive read also has circularity: an app order is itself an extra order, and it counts app-channel volume. Treat as a biased ceiling, not impact.",
+      "Both results are plagued by confounding factors like selection/circularity and should only be used as descriptive insights.",
   },
   guestDiD: {
     approach:
-      "A 'switcher' has a web-only pre-period that consists of at least two orders then adopts the app; controls are never-adopting web-only guests, matched via coarsened exact matching on k × pre-GMV quintile × pre-velocity quintile (after a within-k p99 trim). Because the arms are balanced pre-period, the mean post-period gap over a fixed 180-day window is the effect, reported in real orders and dollars. Inference is a guest-clustered bootstrap 95% CI (2,000 draws) plus a CEM-weighted WLS with cluster-robust SEs.",
+      "A 'switcher' has a web-only pre-period that consists of at least two orders then adopts the app; controls are never-adopting web-only guests, matched via coarsened exact matching on k × pre-GMV quintile × pre-velocity quintile (with a p99 trim to remove outliers). Because the guest cohorts are balanced during the pre-period, the mean post-period gap over a fixed 180-day window is the effect. reported in real orders and dollars.",
     caveats:
-      "No randomization, so unobserved selection bias could remain — result should be interpreted asdirectional and not a clean ATE. The fixed window deliberately keeps churners (0 post-orders allowed). It structurally excludes the ~60K app-only diners with no web pre-period (the store design captures those).",
+      "Since there is no randomization there could be an unobserved selection bias remaining even after pre-period matching. Final results should not be interpreted as the true causal effect in absence of a robust counterfactual.",
   },
   store: {
     approach:
-      "Enablement events (a store's first app order after ≥90d web-only) are matched to never-app control stores on pre-period size AND pre-trend (slope). We take a paired-median difference-in-differences on the per-30-day GMV rate over 6 months, with event-clustered bootstrap CIs, and index each store to its own pre-period (=100) for the event study.",
+      "Enablement events (a store's first app order after ≥90d web-only) are matched to never-app control stores on pre-period size AND pre-trend (slope). We then take a paired-median DiD on the per-30-day GMV rate over 6 months and index each store to its own pre-period to normalize any scale disparities.",
     caveats:
-      "Thin — 32 events. The 6-month CI barely excludes zero and the 90-day version includes zero. Corroborating weight only; the real strength is two independent designs agreeing.",
+      "This analysis is not very powered, with a small sample size of only 32 events. The 6-month CI barely excludes zero and the result should only be used as supporting evidence for the guest level DiD.",
   },
 };
 
 export const INCR_NEXT = {
   followUps: [
-    "Observe impact of adoption over longer time horizon to understand lifetime impact on guest engagement.",
+    "Observe impact of adoption over a longer time horizon to understand the app's impact on lifetime guest engagement.",
     "Explore different definitions of retention that are aligned with customer goals (active-within-6mo vs still-active in months 4–6).",
-    "Enrich guest data and build app adoption propensity model to support matching in order to draw closer towards a causal estimate.",
+    "Enrich guest data and build app adoption propensity model to support matching in order to draw closer towards a true causal estimate.",
     "Grow the store level measurement with greater sample as more enablement events mature past 6 months, to tighten the currently-wide CI.",
   ],
   experiments: [
     "Build a randomized Brand AB with a~10% holdout (pending power analysis) of locations we don't offer the app towards and measure all the other stores against this baseline.", 
     "Approach is lower powered than a guest level experiment but avoids the poor customer experience where not all guests are able to access their app.",
     "A small holdout group would allow us to measure the impact of the app without stunting growth for the entire customer base.",
-    "Additional Guest ABs across within app levers (i.e. loyalty, notifications, etc.) to understand what aspects of the app are most impactful and how we can optimize the experiene for future growth.",
+    "Should also run additional Guest ABs across within app levers (i.e. loyalty, notifications, etc.) to understand what aspects of the app are most impactful and how we can optimize the experiene for future growth.",
   ],
 };

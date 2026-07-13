@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Stack, Grid, Card, CardBody, Callout, Stat, SectionHeading, Eyebrow, H1, Lead, Caption, Chip, Divider } from "@/components/ui";
+import { Stack, Grid, Card, CardBody, Stat, SectionHeading, Eyebrow, H1, Lead, Caption, Chip, Divider } from "@/components/ui";
 import { EXEC_INTRO, EXEC_KPIS, EXEC_FINDINGS, EXEC_NEXT, EXEC_CAVEATS } from "@/data/exec";
 import { DATASET } from "@/data/meta";
 
@@ -31,7 +31,7 @@ export default function ExecutiveSummary() {
       </Grid>
 
       <Stack gap={14}>
-        <SectionHeading title="The Two Questions" sub="Each has its own deep-dive page — click through for the full evidence." />
+        <SectionHeading title="Core Analysis Questions" />
         <Grid cols={2} min="360px" gap={16}>
           {EXEC_FINDINGS.map((f, i) => (
             <Card key={i}>
@@ -62,14 +62,12 @@ export default function ExecutiveSummary() {
           </Stack>
         </Stack>
         <Stack gap={12}>
-          <SectionHeading title="Honest Caveats" />
-          <Callout tone="warning" title="Read the numbers with these in mind">
-            <ul style={{ margin: 0, paddingLeft: 18 }}>
-              {EXEC_CAVEATS.map((c, i) => (
-                <li key={i} style={{ marginBottom: 6 }}>{c}</li>
-              ))}
-            </ul>
-          </Callout>
+          <SectionHeading title="Analytical Caveats" />
+          <Stack gap={10}>
+            {EXEC_CAVEATS.map((c, i) => (
+              <Row key={i} text={c} />
+            ))}
+          </Stack>
         </Stack>
       </Grid>
     </Stack>

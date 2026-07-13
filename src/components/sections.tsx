@@ -89,7 +89,7 @@ export function AnalysisSummary({ takeaways, approach }: { takeaways: string[]; 
 export function NextSteps({ followUps, experiments }: { followUps: string[]; experiments: string[] }) {
   return (
     <Stack gap={12}>
-      <SectionHeading eyebrow="Next steps" title="Where We'd Take This Next" />
+      <SectionHeading eyebrow="Next steps" title="Where Do We Go From Here?" />
       <Grid cols={2} min="320px" gap={16}>
         <Card>
           <CardBody>

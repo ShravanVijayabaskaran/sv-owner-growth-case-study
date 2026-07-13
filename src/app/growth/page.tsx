@@ -60,8 +60,9 @@ export default function Growth() {
         ]}
         referenceLine={{ value: STEP_POSTRAMP_MEDIAN, label: `Post-ramp median +${STEP_POSTRAMP_MEDIAN}%`, tone: "success" }} />
       <Caption style={{ marginTop: 8 }}>
-        Per-location geometric 30-day growth at each onboarding window (M1–M6). The first transition (M0→M1)
-        is pure onboarding ramp that greatly skews our results if included. Our analysis ignores a locations first month to allow them time to transition their existing volume over to Owner. From M2 on, growth settles into the low single digits and stabilizes over subsequent months.
+        Y-axis plots the 30-day growth across the first 6 months in the location's lifecycle (M1–M6). The first transition (M0→M1)
+        is pure onboarding ramp as locations slowly transition their existing volume over to the platform. If we included this window we would 
+        greatly skews our results so instead we ignore the first 30D of a location's data prior to measuring its growth.
       </Caption>
     </>
   );
@@ -72,38 +73,38 @@ export default function Growth() {
         <Eyebrow>Does Owner drive growth?</Eyebrow>
         <H1>Per-Location GMV Growth Analysis</H1>
         <Lead>
-          Measures MoM/YoY GMV Growth for Each Tenure Qualified Location - Directional Not Causal
+          Measures MoM/YoY GMV Growth for Each Tenure Qualified Location
         </Lead>
       </Stack>
 
       <AnalysisSummary takeaways={GROWTH_SUMMARY.takeaways} approach={GROWTH_SUMMARY.approach} />
 
       <Stack gap={14}>
-        <SectionHeading title="Topline Result by Segment" sub="Single-location brands grew faster than their multi-location counterparts however Owner's top brand outperforms all other locations by a wide margin." />
+        <SectionHeading title="Topline Result by Segment" sub="Single-location brands grew faster than their multi-location counterparts however Owner's top brand outperforms all other locations by ~5x." />
         <Methodology approach={GROWTH_METHOD.headline.approach} caveats={GROWTH_METHOD.headline.caveats}
           chart={stepChart} chartLabel="Show Growth-by-Window Trend (M1–M6)" />
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader>Tenure YoY Growth — Median &amp; Mean CAGR</CardHeader>
+            <CardHeader>Tenure YoY Growth (Median &amp; Mean CAGR)</CardHeader>
             <CardBody>
               <BarChartX categories={CMP_CATS} valueSuffix="%" showValues height={230}
                 series={[{ name: "Median (Headline)", data: CMP_YOY, tone: "success", n: yoyN }, { name: "Mean", data: CMP_YOY_MEAN, tone: "neutral", n: yoyN }]} />
-              <Caption style={{ marginTop: 6 }}>Locations ≥760 days (2Y + 30D Onboarding Exclusion). Mean runs above median due to a handful of outliers pulling it up — median is the headline.</Caption>
+              <Caption style={{ marginTop: 6 }}>The typical Owner location grew ~12% YoY with Owner's Top Brand outperforming all other cohorts by ~5x.</Caption>
             </CardBody>
           </Card>
           <Card>
-            <CardHeader>Rolling 30D Growth — Median &amp; Mean</CardHeader>
+            <CardHeader>Rolling 30D Growth (Median &amp; Mean)</CardHeader>
             <CardBody>
               <BarChartX categories={CMP_CATS} valueSuffix="%" showValues height={230}
                 series={[{ name: "Median (Headline)", data: CMP_30D, tone: "success", n: g30N }, { name: "Mean", data: CMP_30D_MEAN, tone: "neutral", n: g30N }]} />
-              <Caption style={{ marginTop: 6 }}> Means are skewed by tiny-base and low tenure outliers (single-loc mean 1.3%, top-brand 52.3%) — median is the honest center.</Caption>
+              <Caption style={{ marginTop: 6 }}> The typical Owner location grows 1.8% MoM (~24% YoY) with Owner's Top Brand once again outperforming all other cohorts substantially.</Caption>
             </CardBody>
           </Card>
         </Grid>
       </Stack>
 
       <Stack gap={14}>
-        <SectionHeading title="Owner Locations vs US Restaurant Spend" sub="When benchmarking Owner per-location median YoY GMV growth against the national total restaurant spend growth, Owner comfortably outperforms the broader market." />
+        <SectionHeading title="Owner Locations vs US Restaurant Spend" sub="When benchmarking Owner per-location median YoY GMV growth against the national total restaurant spend growth, Owner comfortably outperforms the broader market across all segments." />
         <Methodology approach={GROWTH_METHOD.benchmark.approach} caveats={GROWTH_METHOD.benchmark.caveats} />
         <Grid cols={2} min="360px" gap={16}>
           <Card>
@@ -135,7 +136,7 @@ export default function Growth() {
         <Toggle options={SEG_ORDER.map((k) => ({ key: k, label: SEG[k].short }))} value={seg} onChange={setSeg} />
 
         <Callout tone={seg === "top_brand" ? "warning" : "info"} title={s.label}>
-          {s.note} — {s.nBrands.toLocaleString()} brand{s.nBrands === 1 ? "" : "s"} · {s.nLoc} locations · {s.pctGmv}% of GMV.
+          {s.note} ({s.nBrands.toLocaleString()} brand{s.nBrands === 1 ? "" : "s"} · {s.nLoc} locations · {s.pctGmv}% of GMV)
         </Callout>
 
         <Grid cols={3} min="200px" gap={14}>
@@ -146,7 +147,7 @@ export default function Growth() {
 
         <Card>
           <CardHeader trailing={<Toggle options={[{ key: "mom", label: "30-day" }, { key: "yoy", label: "YoY" }]} value={dist} onChange={setDist} />}>
-            Distribution of {isYoY ? "Tenure YoY" : "30-Day"} Growth — {s.short}
+            Distribution of {isYoY ? "Tenure YoY" : "30-Day"} Growth - {s.short}
           </CardHeader>
           <CardBody>
             <BarChartX categories={distBins} showValues height={220}
@@ -161,7 +162,7 @@ export default function Growth() {
 
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader trailing={<Caption>GMV +{ATTRIB[seg].gmv}%/30d · geo mean</Caption>}>Growth Attribution — Contribution Share</CardHeader>
+            <CardHeader trailing={<Caption>GMV +{ATTRIB[seg].gmv}%/30d · geo mean</Caption>}>Growth Attribution (Contribution Share)</CardHeader>
             <CardBody>
               <DivergingBars rows={ATTRIB[seg].levers.map((l) => ({ name: l.name, value: l.share }))} decimals={1} valueSuffix="%" labelWidth={130}
                 legend={{ pos: "adds to growth", neg: "drag" }} />
@@ -170,12 +171,11 @@ export default function Growth() {
             </CardBody>
           </Card>
           <Card>
-            <CardHeader trailing={<Caption>AOV = Items/Order × Price/Item</Caption>}>AOV Drill-Down — Basket Size, Price, or Coupons?</CardHeader>
+            <CardHeader trailing={<Caption>AOV = Items/Order × Price/Item</Caption>}>AOV Drill-Down (Basket Size or Price per Item)</CardHeader>
             <CardBody>
               <DivergingBars rows={aovRows} decimals={2} valueSuffix="%" labelWidth={96} legend={{ pos: "lifts AOV", neg: "drags AOV" }} />
               <Caption style={{ marginTop: 10 }}>
-                The main AOV downbar stems from <b>multi-loc</b> experiencing <b>smaller baskets</b> (fewer
-                items/order, −0.75%/30d), not lower unit price (price/item still rises, +0.30%).
+                The main AOV downbar stems from <b>multi-loc</b> brands experiencing a decrease in the size of each order, not lower unit prices.
               </Caption>
             </CardBody>
           </Card>
@@ -186,15 +186,15 @@ export default function Growth() {
 
       {/* Survivorship */}
       <Stack gap={14}>
-        <SectionHeading title="Survivorship Check — Churned vs Retained" sub="Churn is defined at the brand level where retained = the location's brand has at least one order within 14D of the last date in the data. Growth is measured over each location's own tenure." />
+        <SectionHeading title="Survivorship Check (Churned vs Retained)" sub="Churn is defined at the brand level where retained = the location's brand has at least one order within 14D of the last date in the data. Growth is measured over each location's own tenure." />
         <Methodology approach={GROWTH_METHOD.survivorship.approach} caveats={GROWTH_METHOD.survivorship.caveats} />
-        <Callout tone="warning" title="A Third of Locations Have Churned and They Grew Far Slower First">
-          <b>{RETN.churned.nLoc} of {RETN.churned.nLoc + RETN.retained.nLoc} locations ({RETN.churned.pctLoc}%)</b> belong to brands that look to have churned before the last date in the data — these brands however, hold only <b>{RETN.churned.pctGmv}% of GMV</b>. Growth looks like one of the North Star conditions for retention;
-          this split exposes the bias where churned locations were <b>flat-to-declining before they left</b>.
+        <Callout tone="warning" title="A Third of Locations Churned and Slower Growth is a Leading Indicator">
+          <b>{RETN.churned.nLoc} of {RETN.churned.nLoc + RETN.retained.nLoc} locations ({RETN.churned.pctLoc}%)</b> belong to brands that look to have churned before the last date in the data. These brands however, 
+            hold only <b>{RETN.churned.pctGmv}% of GMV</b>. Growth looks like one of the North Star conditions for retention as we see a material difference in growth rates between the two groups.
         </Callout>
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader>Growth Before Churn — Median by Cohort</CardHeader>
+            <CardHeader>Growth Before Churn (Median by Cohort)</CardHeader>
             <CardBody>
               <BarChartX categories={["Tenure YoY", "Rolling 30D"]} valueSuffix="%" showValues height={220}
                 series={[
@@ -219,7 +219,7 @@ export default function Growth() {
         </Grid>
         <Card>
           <CardHeader trailing={<Toggle options={[{ key: "mom", label: "30-day" }, { key: "yoy", label: "YoY" }]} value={retnDist} onChange={setRetnDist} />}>
-            Growth Distribution — Churned vs Retained (% of Each Cohort)
+            Growth Distribution (Churned vs Retained)
           </CardHeader>
           <CardBody>
             <LineChartX
@@ -230,10 +230,9 @@ export default function Growth() {
                 { name: "Churned", data: retDist.churned, tone: "danger", n: retBins.map(() => retNChn) },
               ]} />
             <Caption style={{ marginTop: 6 }}>
-              Each curve = share of that cohort's locations in each growth band (normalized so churned n={retNChn} and
-              retained n={retNRet} are comparable). {retnDist === "yoy"
-                ? <>The churned curve is capped — <b>nothing above +20%</b> — while retained owns the right tail.</>
-                : <>The churned curve sits <b>left of retained</b>: ~39% of churned are flat/declining (≤0%) vs ~19% of retained.</>}
+               {retnDist === "yoy"
+                ? <>The churned cohort doesn't have any locations growing above +20% while retained cohorts have a much larger right tail.</>
+                : <>The chruned cohort skews towards the left as ~39% of these locations experience flat/declining compared to only ~19% of the retained cohort.</>}
             </Caption>
           </CardBody>
         </Card>
@@ -246,30 +245,29 @@ export default function Growth() {
         <SectionHeading title="What Predicts Whether a Location Grows with Owner?" sub="Built a regression model using both predictive and descriptive features in an attempt to predict customer traits associated with outsized growth" />
         <Methodology approach={GROWTH_METHOD.drivers.approach} caveats={GROWTH_METHOD.drivers.caveats} />
         <Callout tone="warning" title="Honest Answer: a Store's Early Profile Cannot Reasonably Predict its Growth">
-          <b>25% of locations decline</b> post-ramp — but baseline (first-60-day) features explain only a modest, noisy share of
-          which ones: out-of-sample <b>CV R² ≈ 0.18</b> (±0.18). The strongest generalizable signals are small baseline size (mean
-          reversion) and being the <b>top brand</b>; most of the rest is noise. Decline is largely driven by factors outside the 
-          order log. That being said, our desriptive model identified % App Order and Repeat-Order Share as correlated with larger growth rates.
+          <b>25% of locations decline</b> post-ramp but baseline features explain only a modest, noisy share of
+          what drives growth. The strongest generalizable signals are small baseline GMV
+          and being the <b>top brand</b> while the rest is noise. The order level data alone is not enough to build a reasonable predictive model. That being said, our desriptive model identified % App Order and Repeat-Order Share as correlated with larger growth rates however this model is more descriptive in nature.
         </Callout>
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader trailing={<Caption>OLS R²=0.33 · CV R²≈0.18</Caption>}>Baseline Drivers — Causal-Leaning (First 60 Days)</CardHeader>
+            <CardHeader trailing={<Caption>OLS R²=0.33 · CV R²≈0.18</Caption>}>Baseline Drivers (Causal-Leaning)</CardHeader>
             <CardBody>
               <DivergingBars rows={DRV_BASELINE} scale={DRV_SCALE} decimals={2} showStar labelWidth={156} legend={{ pos: "adds", neg: "drags" }} />
-              <Caption style={{ marginTop: 8 }}>Standardized effect on 30-day growth (pp per +1 SD), brand-clustered SE; * = p&lt;0.05. Measured before the growth window.</Caption>
+              <Caption style={{ marginTop: 8 }}>Of the baseline features, baseline GMV size is a driver of growth however this is likely because a smaller ABS shift in GMV on a small baseline would drive a higher proportional growth rate. Additionally, onboarding vintage presents itself across both regressions, suggesting that could be some macro trends influencing growth for Owner customers.</Caption>
             </CardBody>
           </Card>
           <Card>
-            <CardHeader trailing={<Caption>descriptive · CV R²≈0.12</Caption>}>Lifecycle Correlates — Observational (Whole History)</CardHeader>
+            <CardHeader trailing={<Caption>CV R²≈0.12</Caption>}>Lifecycle Correlates (Observational)</CardHeader>
             <CardBody>
               <DivergingBars rows={DRV_LIFECYCLE} scale={DRV_SCALE} decimals={2} showStar labelWidth={156} legend={{ pos: "adds", neg: "drags" }} />
-              <Caption style={{ marginTop: 8 }}>What growing stores look like over their whole life, overlapping with their growth window — Do not read as causal.</Caption>
+              <Caption style={{ marginTop: 8 }}>The most meaningful features correlated with growth are % App Orders and Repeat Order Share, both of which suggest the app could be driving real incremental value. The top brand flag came back positive as well but is ultimately unhelpful as we look to more strategically onboard new customers or prevent existing brands from churning.</Caption>
             </CardBody>
           </Card>
         </Grid>
         <Callout tone="info" title="No Influential Feature Overlaps (Interactions Tested)">
-          Tested 28 pairwise interactions among substantive baseline features. Adding them <b>lowered</b> out-of-sample fit,
-          and the theory-motivated ones returned null. Keep the additive model — <b>no synergistic combination strengthens predictability.</b>
+          After testing 28 pairwise interactions among substantive baseline features. Adding them lowered out-of-sample fit,
+          and <b>no synergistic combination of features strengthened predictability</b>.
         </Callout>
       </Stack>
 
