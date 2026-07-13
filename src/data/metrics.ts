@@ -95,7 +95,7 @@ export const PROFIT_TREE: { branch: string; tone: "success" | "info" | "warning"
     ownerLever: "Restaurants can improve the economics of each order by pulling volume off high-commission marketplaces and encouraging spend in high value items.",
     levers: [
       { name: "Channel Shift Off 3P Platforms", detail: "Shift volume away from 3P platforms like DoorDash and Uber Eats to avoid large fees", visibility: "none", note: "" },
-      { name: "Basket Composition", detail: "Shift customer preferences towards higher margin menu offerings to inrease profits", visibility: "none", note: "" },
+      { name: "Basket Composition", detail: "Shift customer preferences towards higher margin menu offerings to increase profits", visibility: "none", note: "" },
       { name: "Discount Leakage", detail: "Better understand whether Promos/Coupons are driving revenue or simply eroding margin", visibility: "partial", note: "" },
     ],
   },
@@ -104,7 +104,7 @@ export const PROFIT_TREE: { branch: string; tone: "success" | "info" | "warning"
     tone: "warning",
     ownerLever: "Improved inventory management and menu engineering can minimize costs to drive profitability without impacting topline revenue.",
     levers: [
-      { name: "Reduce Food Waste", detail: "Improve invenotry awareness and provide data driven recommendations that reduce spoilage", visibility: "none", note: "" },
+      { name: "Reduce Food Waste", detail: "Improve inventory awareness and provide data driven recommendations that reduce spoilage", visibility: "none", note: "" },
       { name: "Optimize Menu Offerings", detail: "Suggest changes to menu items that lower costs, increase margin, or minimize wastage", visibility: "none", note: "" },
     ],
   },
