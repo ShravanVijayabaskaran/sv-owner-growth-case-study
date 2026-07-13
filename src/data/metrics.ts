@@ -113,7 +113,7 @@ export const PROFIT_TREE: { branch: string; tone: "success" | "info" | "warning"
 // ---- What the data lets us see (and what it doesn't) ----
 export const VISIBILITY_ROWS: { component: string; visibility: Visibility; observe: string }[] = [
   { component: "Direct-Channel GMV", visibility: "full", observe: "GMV" },
-  { component: "Orders, Unique guests, Frequency", visibility: "full", observe: "ORDER_ID · GUEST_ID · ORDER_CREATED_AT_PT" },
+  { component: "Orders, Unique Guests, Frequency", visibility: "full", observe: "ORDER_ID · GUEST_ID · ORDER_CREATED_AT_PT" },
   { component: "Channel (App / Web / POS / Phone)", visibility: "full", observe: "ORDER_SOURCE" },
   { component: "Fulfillment (Pickup/Delivery, In-House/3P)", visibility: "full", observe: "ORDER_TYPE · DELIVERY_TYPE" },
   { component: "Basket Size & Unit Price", visibility: "full", observe: "NUMBER_OF_ITEMS · Price/Item = GMV ÷ NUMBER_OF_ITEMS" },
