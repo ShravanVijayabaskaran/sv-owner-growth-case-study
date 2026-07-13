@@ -27,7 +27,7 @@ export const PROFIT_ROOT: MetricNode = {
         {
           label: "Average Order Value (AOV)",
           vis: "full",
-          op: "+",
+          op: "x",
           children: [
             { label: "Basket Size", vis: "full" },
             { label: "Price per Item", vis: "full" },
