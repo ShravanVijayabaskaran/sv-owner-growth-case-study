@@ -47,7 +47,7 @@ export const TENURE = {
 export type DQSeverity = "EXCLUDE" | "NOTE" | "CLEAN";
 export const DQ_FINDINGS: { severity: DQSeverity; finding: string; detail: string; action: string }[] = [
   { severity: "EXCLUDE", finding: "Non-Human / Demo Accounts", detail: "5 guests with inauthentic behaviour (defined as ≥10 orders AND >3 orders/day) accounting for 558 orders (0.037%).", action: "Removed from Analysis" },
-  { severity: "EXCLUDE", finding: "Dormant-Reactivation Locations", detail: "3 locations went dark ()>180 days w/ no activity) and then reappeared accounting for ~4.9k orders (0.3%).", action: "Removed from Analysis to Avoid Noise in Growth Measurement" },
+  { severity: "EXCLUDE", finding: "Dormant-Reactivation Locations", detail: "3 locations went dark (>180 days w/ no activity) and then reappeared accounting for ~4.9k orders (0.3%).", action: "Removed from Analysis to Avoid Noise in Growth Measurement" },
   { severity: "NOTE", finding: "Non-Positive GMV", detail: "6,498 orders (0.43%) with GMV≤0 which likely represents refunds/comps/voids.", action: "Retained (Interpreted as Negative GMV)" },
   { severity: "NOTE", finding: "Non-Positive Item Counts", detail: "13 orders (0.001%) with NUMBER_OF_ITEMS ≤ 0.", action: "N/A" },
   { severity: "NOTE", finding: "Incomplete Delivery Fields", detail: "443 delivery orders missing DELIVERY_TYPE and 22,293 delivery orders with NULL/0 delivery fee (likely free delivery orders).", action: "N/A" },
