@@ -1,9 +1,6 @@
 -- =====================================================================
---     (1) Naive App-adopter vs Web-only guest        biased        Q1
---     (2) Store app-penetration vs store growth        confounded    Q2
---     (3) Within-GUEST switcher DiD + matched control  PRIMARY       Python
---     (4) Store-level app-ENABLEMENT DiD               corroborating Python
---     (5) Propensity-stratified / cohort re-estimate   robustness    Python
+--     (1) Naive App-adopter vs Web-only guest       
+--     (2) Store app-penetration vs store growth     
 -- =====================================================================
 
 
