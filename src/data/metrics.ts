@@ -55,7 +55,7 @@ export const PROFIT_ROOT: MetricNode = {
     {
       label: "Cost of Goods Sold (COGS)",
       vis: "none",
-      op: "≈",
+      op: "=",
       children: [
         {
           label: "Simple Food Costs",
@@ -86,7 +86,7 @@ export const PROFIT_TREE: { branch: string; tone: "success" | "info" | "warning"
     levers: [
       { name: "Acquire New Customers", detail: "Increase guest volume at every level of the acquisition funnel from awareness to conversion", visibility: "partial", note: "" },
       { name: "Retain & Reorder", detail: "Increase a guest's liklihood to return or develop habituation to build a consistent revenue base", visibility: "full", note: "" },
-      { name: "Bigger Baskets (AOV)", detail: "Enourage guests to order more or higher value items across every order placed", visibility: "full", note: "" },
+      { name: "Bigger Baskets (AOV)", detail: "Encourage guests to order more or higher value items across every order placed", visibility: "full", note: "" },
     ],
   },
   {
