@@ -121,7 +121,7 @@ export const VISIBILITY_ROWS: { component: string; visibility: Visibility; obser
   { component: "Coupon Usage", visibility: "partial", observe: "HAS_COUPON / COUPON_TYPE  - Missing Discount Amount Column" },
   { component: "Attribution / Marketing Channel", visibility: "partial", observe: "UTM_SOURCE/MEDIUM - Poor Data Population w/ No Supporting Promo Campaign Info" },
   { component: "Refunds / Voids", visibility: "partial", observe: "Assuming Order is Refund/Void if GMV ≤ 0 (n = 6,498)" },
-  { component: "Food & Labor Cost", visibility: "none", observe: "Not Cost Based Data Available" },
+  { component: "Food & Labor Cost", visibility: "none", observe: "No Cost Based Data Available" },
   { component: "Marketplace Commissions & 3P Order Volume", visibility: "none", observe: "Only Owner Platform Data Available" },
   { component: "Marketing Spend / CAC", visibility: "none", observe: "No Marketing Spend Data Available" },
   { component: "Restaurant Actual Profit", visibility: "none", observe: "No Cost Data Available so Using GMV as a Proxy for Profit" },
