@@ -155,7 +155,7 @@ export const MD_PRINCIPLES: { title: string; detail: string }[] = [
   },
   {
     title: "Each Location is its Own Control",
-    detail: "Growth is measured relative to a location's own lifeycle to compare its performance against itself rather than to peers that launched in different years or market conditions. This hopes to netting out seasonality and structural brand differences since there is no external control group or counterfactual.",
+    detail: "Growth is measured relative to a location's own lifeycle to compare its performance against itself rather than to peers that launched in different years or market conditions. This hopes to net out any structural brand differences since there is no external control group or counterfactual.",
   },
   {
     title: "Geometric Within Location, Median Across Locations",
