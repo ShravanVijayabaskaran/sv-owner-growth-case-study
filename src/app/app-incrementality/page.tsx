@@ -159,10 +159,10 @@ export default function AppIncrementality() {
 
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader trailing={<Caption>Matched Sample · Mean</Caption>}>Matching Quality: Pre-Period Baselines are Balanced</CardHeader>
+            <CardHeader trailing={<Caption>Matched Sample · Mean</Caption>}>Matching Quality: Pre-Period Baselines are Similar</CardHeader>
             <CardBody>
               <Table headers={["Pre-Adoption Feature", "Adopter", "Control"]} align={["left", "right", "right"]} rows={BALANCE.map((b) => [b[0], b[1], b[2]])} />
-              <Caption style={{ marginTop: 8 }}>Near-identical pre-adoption features(SMD &lt; 0.03) which lets us read the post-period gap directly as the effect.</Caption>
+              <Caption style={{ marginTop: 8 }}>Pre-adoption baselines are similar(SMD &lt; 0.03) however there are still some confounders our approach cannot entirely remove.</Caption>
             </CardBody>
           </Card>
           <Card>
