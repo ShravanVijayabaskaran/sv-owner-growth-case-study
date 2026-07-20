@@ -162,7 +162,7 @@ export default function Growth() {
 
         <Grid cols={2} min="360px" gap={16}>
           <Card>
-            <CardHeader trailing={<Caption>GMV +{ATTRIB[seg].gmv}%/30d · geo mean</Caption>}>Growth Attribution (Contribution Share)</CardHeader>
+            <CardHeader trailing={<Caption>30D · Geo Mean</Caption>}>Growth Attribution (Contribution Share)</CardHeader>
             <CardBody>
               <DivergingBars rows={ATTRIB[seg].levers.map((l) => ({ name: l.name, value: l.share }))} decimals={1} valueSuffix="%" labelWidth={130}
                 legend={{ pos: "adds to growth", neg: "drag" }} />
